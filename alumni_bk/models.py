@@ -11,10 +11,10 @@ class UsersInfo(models.Model):
     enrollment_no = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=500,null=True)
     email=models.CharField(max_length=250,null=True)
-    pass_year=models.CharField(max_length=250)
-    city=models.CharField(max_length=250)
-    state=models.CharField(max_length=250)
-    country=models.CharField(max_length=250)
+    pass_year=models.CharField(max_length=250, null=True)
+    city=models.CharField(max_length=250, null=True)
+    state=models.CharField(max_length=250 , null=True)
+    country=models.CharField(max_length=250, null=True)
 
     def _str_(self):
         return self.role
