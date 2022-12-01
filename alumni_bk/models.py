@@ -41,3 +41,15 @@ class Story(models.Model):
 class Query(models.Model):
     title=models.CharField(max_length=300)
     content = models.CharField(max_length=300)
+
+class Location(models.Model):
+    city = models.CharField(max_length=200)
+    count =models.IntegerField()
+
+class Skills(models.Model):
+    skill=models.CharField(max_length=200)
+    count=models.IntegerField()
+
+class wExperience(models.Model):
+    range=models.CharField(max_length=50)
+    count=models.IntegerField()

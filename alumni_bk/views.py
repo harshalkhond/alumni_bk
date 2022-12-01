@@ -1,12 +1,16 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
-from .serializers import RegisterSerializer,UserInfoSerializer,UserSerializer, EventSerializer , StorySerializer
+from .serializers import RegisterSerializer,UserInfoSerializer,UserSerializer, EventSerializer , StorySerializer , LocationSerializer , SkillsSerializer , WExpSerializer
 from .serializers import QuerySerializer
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.models import AuthToken
 from rest_framework.views import APIView
-from .models import UsersInfo , Event , Story,Query
+from .models import UsersInfo , Event , Story,Query,Location,Skills,wExperience
+from knox.views import LoginView as KnoxLoginView
+from rest_framework import permissions
+from django.contrib.auth import login
+from django.contrib.auth.models import User
 # Create your views here.
 class RegisterAPI(generics.GenericAPIView):
     serializer_class = RegisterSerializer
@@ -77,6 +81,65 @@ class QueryView(APIView):
 
     def post(self, request):
         serializer = QuerySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "Data": serializer.data}, status=200)
+
+        else:
+            return Response({"status": "error", "Data": serializer.errors}, status=400)
+
+
+class LoginAPI(KnoxLoginView):
+    permission_classes = (permissions.AllowAny,)
+    def post(self, request, format=None):
+        serializer = AuthTokenSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        login(request, user)
+        return super(LoginAPI, self).post(request, format=None)
+
+
+class LocationView(APIView):
+    def get(self, request, *args, **kwargs):
+        result = Location.objects.all()
+        serializers = LocationSerializer(result, many=True)
+        return Response({'status': 'success', "students": serializers.data}, status=200)
+
+    def post(self, request):
+        serializer = LocationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "Data": serializer.data}, status=200)
+
+        else:
+            return Response({"status": "error", "Data": serializer.errors}, status=400)
+
+
+
+class SkillsView(APIView):
+    def get(self, request, *args, **kwargs):
+        result = Skills.objects.all()
+        serializers = SkillsSerializer(result, many=True)
+        return Response({'status': 'success', "students": serializers.data}, status=200)
+
+    def post(self, request):
+        serializer = SkillsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "Data": serializer.data}, status=200)
+
+        else:
+            return Response({"status": "error", "Data": serializer.errors}, status=400)
+
+
+class WExpView(APIView):
+    def get(self, request, *args, **kwargs):
+        result = wExperience.objects.all()
+        serializers = WExpSerializer(result, many=True)
+        return Response({'status': 'success', "students": serializers.data}, status=200)
+
+    def post(self, request):
+        serializer = WExpSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({"status": "success", "Data": serializer.data}, status=200)

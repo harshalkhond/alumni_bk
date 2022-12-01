@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import UsersInfo , Event , Story, Query
+from .models import UsersInfo , Event , Story, Query, Location, Skills, wExperience
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -38,3 +38,19 @@ class QuerySerializer(serializers.ModelSerializer):
     class Meta:
         model = Query
         fields = ['title','content']
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = ['city','count']
+
+class SkillsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skills
+        fields = ['skill','count']
+
+class WExpSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = wExperience
+        fields = ['range','count']
+        

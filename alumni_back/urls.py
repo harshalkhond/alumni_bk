@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from alumni_bk.views import RegisterAPI, UserInfoView, EventView, StoryView, QueryView
+from alumni_bk.views import RegisterAPI, UserInfoView, EventView, StoryView, QueryView, LoginAPI, LocationView, SkillsView, WExpView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,5 +23,9 @@ urlpatterns = [
     path('api/infoRegister',UserInfoView.as_view(),name="infoRegister"),
     path('api/events',EventView.as_view(),name="Event"),
     path('api/story', StoryView.as_view(),name="Story"),
-    path('api/query', QueryView.as_view(),name="query")
+    path('api/query', QueryView.as_view(),name="query"),
+    path('api/login',LoginAPI.as_view(),name="login"),
+    path('api/location',LocationView.as_view(),name="location"),
+    path('api/skills',SkillsView.as_view(),name="login"),
+    path('api/WExpview',WExpView.as_view(),name="login")
 ]
