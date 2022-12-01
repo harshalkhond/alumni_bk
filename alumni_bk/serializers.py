@@ -21,7 +21,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = UsersInfo
-        fields = ['role','course','department','year_of_joining','year_of_graduation','emrollment_no']
+        fields = ['role','course','department','year_of_joining','year_of_graduation','enrollment_no','name','email']
 
 
 class EventSerializer(serializers.ModelSerializer):

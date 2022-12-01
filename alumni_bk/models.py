@@ -3,12 +3,18 @@ from django.db import models
 # Create your models here.
 
 class UsersInfo(models.Model):
-    role = models.CharField(max_length=120, primary_key=True)
+    role = models.CharField(max_length=120)
     course = models.TextField()
     department = models.CharField(max_length=100, null=True)
     year_of_joining = models.TextField(max_length=255)
     year_of_graduation = models.TextField(max_length=255)
-    enrollment_no = models.IntegerField()
+    enrollment_no = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=500,null=True)
+    email=models.CharField(max_length=250,null=True)
+    pass_year=models.CharField(max_length=250)
+    city=models.CharField(max_length=250)
+    state=models.CharField(max_length=250)
+    country=models.CharField(max_length=250)
 
     def _str_(self):
         return self.role
