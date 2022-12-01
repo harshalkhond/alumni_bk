@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from alumni_bk.views import RegisterAPI, UserInfoView
+from alumni_bk.views import RegisterAPI, UserInfoView, EventView, StoryView, QueryView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/register',RegisterAPI.as_view(),name="register"),
     path('api/infoRegister',UserInfoView.as_view(),name="infoRegister"),
+    path('api/events',EventView.as_view(),name="Event"),
+    path('api/story', StoryView.as_view(),name="Story"),
+    path('api/query', QueryView.as_view(),name="query")
 ]

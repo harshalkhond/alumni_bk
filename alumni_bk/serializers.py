@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import UsersInfo
+from .models import UsersInfo , Event , Story, Query
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -22,3 +22,19 @@ class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = UsersInfo
         fields = ['role','course','department','year_of_joining','year_of_graduation','emrollment_no']
+
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['title','start_date','end_date','start_time','end_time']
+
+class StorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Story
+        fields = ['title','summary','author','day_of_event']
+
+class QuerySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Query
+        fields = ['title','content']

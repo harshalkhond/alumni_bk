@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
-from .serializers import RegisterSerializer,UserInfoSerializer,UserSerializer
+from .serializers import RegisterSerializer,UserInfoSerializer,UserSerializer, EventSerializer , StorySerializer
+from .serializers import QuerySerializer
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.models import AuthToken
 from rest_framework.views import APIView
-from .models import UsersInfo
+from .models import UsersInfo , Event , Story,Query
 # Create your views here.
 class RegisterAPI(generics.GenericAPIView):
     serializer_class = RegisterSerializer
@@ -23,13 +24,62 @@ class UserInfoView(APIView):
     def get(self, request, *args, **kwargs):
         result = UsersInfo.objects.all()
         serializers = UserInfoSerializer(result, many=True)
-        return Response({'status': 'success', "students": serializers.data}, status=200)
+        return Response({'status': 'success', "Data": serializers.data}, status=200)
 
     def post(self, request):
         serializer = UserInfoSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+            return Response({"status": "success", "Data": serializer.data}, status=200)
 
         else:
-            return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"status": "error", "Data": serializer.errors}, status=400)
+
+
+class EventView(APIView):
+    def get(self, request, *args, **kwargs):
+        result = Event.objects.all()
+        serializers = EventSerializer(result, many=True)
+        return Response({'status': 'success', "students": serializers.data}, status=200)
+
+    def post(self, request):
+        serializer = EventSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "Data": serializer.data}, status=200)
+
+        else:
+            return Response({"status": "error", "Data": serializer.errors}, status=400)
+
+
+
+class StoryView(APIView):
+    def get(self, request, *args, **kwargs):
+        result = Story.objects.all()
+        serializers = StorySerializer(result, many=True)
+        return Response({'status': 'success', "students": serializers.data}, status=200)
+
+    def post(self, request):
+        serializer = StorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "Data": serializer.data}, status=200)
+
+        else:
+            return Response({"status": "error", "Data": serializer.errors}, status=400)
+
+
+class QueryView(APIView):
+    def get(self, request, *args, **kwargs):
+        result = Query.objects.all()
+        serializers = QuerySerializer(result, many=True)
+        return Response({'status': 'success', "students": serializers.data}, status=200)
+
+    def post(self, request):
+        serializer = QuerySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "Data": serializer.data}, status=200)
+
+        else:
+            return Response({"status": "error", "Data": serializer.errors}, status=400)
